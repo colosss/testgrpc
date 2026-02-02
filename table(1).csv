@@ -1,0 +1,60 @@
+Папка / Подпапка,Ключевые файлы (примеры),Описание / Ответственность (как в типичных clean-видео)
+(корень),"main.py
+pyproject.toml / requirements.txt
+.env
+Dockerfile
+alembic.ini","Точка входа (FastAPI app = FastAPI(), uvicorn.run).
+Зависимости (uv / poetry).
+Переменные окружения.
+Контейнеризация.
+Миграции БД (alembic init)."
+src/ или app/,—,"Основная папка с кодом (часто src для poetry/uv, app для простоты)."
+src/core или src/domain,"entities.py
+exceptions.py
+value_objects.py","Чистые доменные сущности (dataclasses / Pydantic без валидации API).
+Доменные исключения.
+Value objects (Money, Email, etc.). Независимы от фреймворков и БД."
+src/application или src/use_cases,"use_cases/
+│   ├── create_price_use_case.py
+│   ├── get_price_use_case.py
+│   └── ...
+dtos/
+│   └── price_dto.py
+ports/
+│   └── price_repository_port.py","Application services / Use cases — оркестрация бизнес-логики.
+Входные/выходные DTO (Pydantic).
+Абстрактные порты/интерфейсы (Abstract Base Class или Protocol) для репозиториев и внешних сервисов."
+src/adapters или src/interfaces,"api/
+│   ├── routers/
+│   │   └── pricing_router.py
+│   ├── dependencies.py
+│   └── schemas/
+│       ├── price_create.py
+│       └── price_response.py
+repositories/
+│   └── sql_price_repository.py","Конкретные адаптеры для внешнего мира.
+FastAPI роутеры (APIRouter), Depends, Pydantic схемы (request/response).
+Реализации портов (SQLAlchemy репозиторий, Redis cache и т.д.)."
+src/infrastructure или src/config,"config/
+│   └── settings.py (Pydantic Settings)
+database/
+│   ├── session.py
+│   └── engine.py
+logging.py
+external/
+│   └── stripe_client.py","Конкретные инфраструктурные вещи.
+Настройки (BaseSettings с .env).
+DB engine, AsyncSession.
+Логгер (loguru / structlog).
+Клиенты внешних сервисов (Stripe, Kafka producer и т.д.)."
+src/migrations,"env.py
+versions/","Alembic миграции (autogenerate, upgrade)."
+tests/,"unit/
+│   └── test_create_price.py
+integration/
+│   └── test_pricing_router.py
+conftest.py","Unit-тесты (mocks для use_cases, ports).
+Integration / API тесты (TestClient, in-memory DB).
+Fixtures (pytest-asyncio, override Depends)."
+scripts/ или tools/,"seed_db.py
+run_migrations.sh","Утилитарные скрипты (наполнение тестовыми данными, запуск миграций)."
