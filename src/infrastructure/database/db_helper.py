@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import (
     async_scoped_session,
 )
 from sqlalchemy.orm import sessionmaker
-from db_config import settings
+from src.infrastructure.database.db_config import settings
+from src.infrastructure.database.repositories.post import PostRepository
 
 class DatabaseHelper:
     def __init__ (self, url: str, echo: bool = False):
@@ -37,6 +38,10 @@ class DatabaseHelper:
         session=self.get_scope_session()
         yield session
         await session.close()
+    
+    async def get_post_repo(self) -> PostRepository:
+        async with self.session_factory() as session:
+            yield PostRepository(session)
 
 db_helper = DatabaseHelper(
     url=settings.db_url,

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped
-from ..infreastructure.database.base import Base
+from src.infrastructure.database.base import Base
 
 class Post(Base):
     __tablename__ = "posts"

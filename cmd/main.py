@@ -1,7 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from src.config.database import db_helper
+from src.infrastructure.database import db_helper
+from interfaces.api import post
 
 
 @asynccontextmanager
@@ -12,6 +13,7 @@ async def lifespan(app: FastAPI):
     
 
 app = FastAPI(lifespan=lifespan)
+app.include_router(post.router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)

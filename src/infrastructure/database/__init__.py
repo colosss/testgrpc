@@ -6,4 +6,4 @@ __all__=(
 )
 from .base import Base
 from .db_helper import db_helper, DatabaseHelper
-from .db_post import Post
+from core.models import Post

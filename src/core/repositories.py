@@ -9,7 +9,7 @@ class AbstractPostRepository(ABC):
         pass
 
     @abstractmethod
-    async def list_posts(self)->List[Post]:
+    async def list_posts(self, start:Optional[int], end:Optional[int])->List[Post]:
         pass
 
     @abstractmethod

@@ -12,8 +12,12 @@ class PostRepository(AbstractPostRepository):
         post=await self.session.get(Post, post_id)
         return post
     
-    async def list_posts(self) -> List[Post]:
+    async def list_posts(self, start: Optional[int] = None, end: Optional[int] = None) -> List[Post]:
         stmt=select(Post)
+        if start is not None:
+            stmt = stmt.offset(start)
+        if end is not None:
+            stmt = stmt.limit(end - start)
         result=await self.session.execute(stmt)
         post=result.scalars().all()
         return list(post)
@@ -25,7 +29,7 @@ class PostRepository(AbstractPostRepository):
         return count
     
     async def create_post(self, post:Post)->Post:
-        await self.session.add(post)
+        self.session.add(post)
         await self.session.commit()
         await self.session.refresh(post)
         return post
