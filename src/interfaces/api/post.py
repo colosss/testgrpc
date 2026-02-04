@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, status
 from typing import List, Optional
 
 from src.application.dto.post import(
+    PostSchema,
     PostDeleteDTO,
     PostByIdDTO,
     PostCreateDTO,
@@ -23,17 +24,19 @@ from src.infrastructure.database.base import Base
 from src.infrastructure.database.db_helper import db_helper
 from src.infrastructure.database.repositories.post import PostRepository
 
-router=APIRouter(prefix="/post/", tags=["Post"])
+router=APIRouter(prefix="/post", tags=["Post"])
 
-@router.post("/", response_model=Post)
+@router.post("/", response_model=PostSchema)
 async def create_post(
-    post_dto=PostCreateDTO,
+    title:str=None,
+    content:str=None,
+    author_id:int=None,
     post_repo:PostRepository=Depends(db_helper.get_post_repo),
 ):
     use_case=CreatePostUseCase(post_repo)
-    return await use_case.execute(post_dto)
+    return await use_case.execute(PostCreateDTO(title=title, content=content, author_id=author_id))
 
-@router.get("/", response_model=List[Post])
+@router.get("/", response_model=List[PostSchema])
 async def get_all_posts(
     start:Optional[int]=None,
     end:Optional[int]=None,
@@ -42,7 +45,7 @@ async def get_all_posts(
     use_case=GetListPostsUseCase(post_repo)
     return await use_case.execute(PostListDTO(start=start, end=end))
 
-@router.get("/{post}", response_model=Post)
+@router.get("/{post_id}", response_model=PostSchema)
 async def get_post_by_id(
     post_id:int,
     post_repo:PostRepository=Depends(db_helper.get_post_repo)
@@ -50,7 +53,7 @@ async def get_post_by_id(
     use_case=GetPostByIdUseCase(post_repo)
     return await use_case.execute(PostByIdDTO(id=post_id))
 
-@router.put("/{post_id}", response_model=Post)
+@router.put("/{post_id}", response_model=PostSchema)
 async def update_post(
     post_id:int,
     post_dto:PostUpdateDTO,

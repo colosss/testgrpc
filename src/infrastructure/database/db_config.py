@@ -1,6 +1,6 @@
 from pathlib import Path
 from os import getenv
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PORT = getenv('DB_PORT','5432')

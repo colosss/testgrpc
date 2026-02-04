@@ -19,6 +19,7 @@ dependencies = [
 ]
 
 [tool.poetry]
+packages = [{include = "src"}]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
