@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package post;
+
+service Greeter {
+    rpc GetUserName (PostRequest) returns (UserNameReply) {}
+
+    rpc GetTitle (PostRequest) returns (PostTitleReply) {}
+
+
+
+}
+message PostRequest {
+    int64 post_id=1;
+}
+
+message UserNameReply{
+    string user_name=1;
+}
+
+message PostTitleReply{
+    string title=1;
+}

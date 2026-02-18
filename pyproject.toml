@@ -18,6 +18,8 @@ dependencies = [
     "uvicorn (>=0.40.0,<0.41.0)",
     "grpcio (>=1.76.0,<2.0.0)",
     "grpcio-tools (>=1.76.0,<2.0.0)",
+    "protobuf (>=6.33.5,<7.0.0)",
+    "mypy (>=1.19.1,<2.0.0)",
 ]
 
 [tool.poetry]
@@ -25,6 +27,7 @@ packages = [{include = "src"}]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
+mypy-protobuf = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
