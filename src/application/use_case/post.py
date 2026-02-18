@@ -1,6 +1,14 @@
 from src.core.models import Post
 from src.core.repositories import AbstractPostRepository
-from src.application.dto.post import PostCreateDTO, PostDeleteDTO, PostByIdDTO, PostListDTO, PostUpdateDTO
+from src.application.dto.post import(
+    PostCreateDTO,
+    PostDeleteDTO,
+    PostByIdDTO, 
+    PostListDTO, 
+    PostUpdateDTO,
+    UserNameByIdGrpcDTO,
+    TitleByPostIdGrpcDTO,
+)
 
 class CreatePostUseCase:
     def __init__(self, post_repo: AbstractPostRepository) ->Post:
@@ -69,3 +77,19 @@ class DeletePostUseCase:
     async def execute(self, post_dto:PostDeleteDTO):
         post_id=post_dto.post_id
         return await self._post_repo.delete_post(post_id)
+    
+class GetUserNameByPostIdGrpcUseCase:
+    def __int__(self, post_repo:AbstractPostRepository):
+        self._post_repo=post_repo
+
+    async def execute(self, post_dto:UserNameByIdGrpcDTO):
+        post_id=post_dto.post_id
+        return await self._post_repo.get_user_by_post_id_grpc(post_id)
+    
+class GetTitleByPoststrIdGrpcUseCase:
+    def __init__(self, post_repo:AbstractPostRepository):
+        self._post_repo=post_repo
+    
+    async def execute(self, post_dto:TitleByPostIdGrpcDTO):
+        post_id=post_dto.post_id
+        return await self._post_repo.get_title_by_post_id_grpc(post_id)

@@ -28,4 +28,10 @@ class AbstractPostRepository(ABC):
     async def delete_post(self, post_id:int)->None:
         pass
 
-    
+    @abstractmethod
+    async def get_user_by_post_id_grpc(self, post_id:int)->Optional[int]:
+        pass
+
+    @abstractmethod
+    async def get_title_by_post_id_grpc(self, post_id:int)->Optional[int]:
+        pass

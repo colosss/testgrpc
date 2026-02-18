@@ -29,3 +29,9 @@ class PostListDTO(BaseModel):
 
 class PostDeleteDTO(BaseModel):
     post_id:int
+
+class UserNameByIdGrpcDTO(BaseModel):
+    post_id:int
+
+class TitleByPostIdGrpcDTO(BaseModel):
+    post_id:int

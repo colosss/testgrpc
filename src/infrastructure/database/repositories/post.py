@@ -53,3 +53,12 @@ class PostRepository(AbstractPostRepository):
             await self.session.commit()
         return
     
+    async def get_user_by_post_id_grpc(self, post_id) -> int:
+        db_post=await self.get_post_by_id(post_id)
+        author_id=db_post.author_id
+        return author_id
+    
+    async def get_title_by_post_id_grpc(self, post_id) -> int:
+       db_post=await self.get_post_by_id(post_id)
+       title=db_post.title
+       return title
