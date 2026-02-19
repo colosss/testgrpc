@@ -1,0 +1,4 @@
+{
+    "terminal.integrated.defaultProfile.linux": "sh",
+    "terminal.integrated.env.linux": {}
+}

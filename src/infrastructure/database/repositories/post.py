@@ -3,6 +3,9 @@ from sqlalchemy import select, func
 from src.core.models import Post
 from src.core.repositories import AbstractPostRepository
 from typing import List, Optional
+from src.interfaces.grpc.post_client import run as client_run
+import asyncio
+import logging
 
 class PostRepository(AbstractPostRepository):
     def __init__(self, session: AsyncSession):
@@ -54,8 +57,10 @@ class PostRepository(AbstractPostRepository):
         return
     
     async def get_user_by_post_id_grpc(self, post_id) -> int:
-        db_post=await self.get_post_by_id(post_id)
-        author_id=db_post.author_id
+        grpc_message= await client_run(post_id)
+        # db_post=await self.get_post_by_id(post_id)
+        # author_id=db_post.author_id
+        author_id=grpc_message
         return author_id
     
     async def get_title_by_post_id_grpc(self, post_id) -> int:

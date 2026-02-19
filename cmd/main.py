@@ -18,6 +18,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(post.router)
+app.include_router(post.grpc)
 
 if __name__ == "__main__":
     uvicorn.run("cmd.main:app", reload=True)
