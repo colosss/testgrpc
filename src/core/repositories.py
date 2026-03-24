@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List,Optional
 from src.core.models import Post
+from sqlalchemy.orm import Mapped
 
 class AbstractPostRepository(ABC):
 
@@ -29,9 +30,9 @@ class AbstractPostRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_user_by_post_id_grpc(self, post_id:int)->Optional[int]:
+    async def get_user_by_post_id_grpc(self, post_id:int)->int:
         pass
 
     @abstractmethod
-    async def get_title_by_post_id_grpc(self, post_id:int)->Optional[int]:
+    async def get_title_by_post_id_grpc(self, post_id:int)->Optional[Mapped[str]]:
         pass

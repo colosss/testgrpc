@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import src.interfaces.grpc.pb.post_pb2 as post__pb2
+from src.interfaces.grpc.proto import post_pb2 as src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in post_pb2_grpc.py depends on'
+        + ' but the generated code in src/interfaces/grpc/proto/post_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -36,13 +36,13 @@ class GreeterStub(object):
         """
         self.GetUserName = channel.unary_unary(
                 '/post.Greeter/GetUserName',
-                request_serializer=post__pb2.PostRequest.SerializeToString,
-                response_deserializer=post__pb2.UserNameReply.FromString,
+                request_serializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.SerializeToString,
+                response_deserializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.UserNameReply.FromString,
                 _registered_method=True)
         self.GetTitle = channel.unary_unary(
                 '/post.Greeter/GetTitle',
-                request_serializer=post__pb2.PostRequest.SerializeToString,
-                response_deserializer=post__pb2.PostTitleReply.FromString,
+                request_serializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.SerializeToString,
+                response_deserializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostTitleReply.FromString,
                 _registered_method=True)
 
 
@@ -66,13 +66,13 @@ def add_GreeterServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetUserName': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserName,
-                    request_deserializer=post__pb2.PostRequest.FromString,
-                    response_serializer=post__pb2.UserNameReply.SerializeToString,
+                    request_deserializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.FromString,
+                    response_serializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.UserNameReply.SerializeToString,
             ),
             'GetTitle': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTitle,
-                    request_deserializer=post__pb2.PostRequest.FromString,
-                    response_serializer=post__pb2.PostTitleReply.SerializeToString,
+                    request_deserializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.FromString,
+                    response_serializer=src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostTitleReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -100,8 +100,8 @@ class Greeter(object):
             request,
             target,
             '/post.Greeter/GetUserName',
-            post__pb2.PostRequest.SerializeToString,
-            post__pb2.UserNameReply.FromString,
+            src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.SerializeToString,
+            src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.UserNameReply.FromString,
             options,
             channel_credentials,
             insecure,
@@ -127,8 +127,8 @@ class Greeter(object):
             request,
             target,
             '/post.Greeter/GetTitle',
-            post__pb2.PostRequest.SerializeToString,
-            post__pb2.PostTitleReply.FromString,
+            src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostRequest.SerializeToString,
+            src_dot_interfaces_dot_grpc_dot_proto_dot_post__pb2.PostTitleReply.FromString,
             options,
             channel_credentials,
             insecure,

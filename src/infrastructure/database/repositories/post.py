@@ -57,13 +57,15 @@ class PostRepository(AbstractPostRepository):
         return
     
     async def get_user_by_post_id_grpc(self, post_id) -> int:
-        grpc_message= await client_run(post_id)
+        grpc_message=post_id
+        # grpc_message= await client_run(post_id)
+
         # db_post=await self.get_post_by_id(post_id)
         # author_id=db_post.author_id
         author_id=grpc_message
         return author_id
     
-    async def get_title_by_post_id_grpc(self, post_id) -> int:
+    async def get_title_by_post_id_grpc(self, post_id) -> str:
        db_post=await self.get_post_by_id(post_id)
        title=db_post.title
        return title

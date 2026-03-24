@@ -76,18 +76,24 @@ async def delete_post(
     use_case=DeletePostUseCase(post_repo)
     return await use_case.execute(PostDeleteDTO(post_id=post_id))
 
+# @grpc.get("/{post_id}", response_model=PostSchema)
+# async def get_user_by_post_id_grpc(
+#     post_id:int,
+#     post_repo:PostRepository=Depends(db_helper.get_post_repo)
+# ):
+#     use_case=GetUserNameByPostIdGrpcUseCase(post_repo)
+#     return await use_case.execute(UserNameByIdGrpcDTO(post_id=post_id))
+
+# @grpc.get("/title/{post_id}", response_model=PostSchema)
+# async def get_title_by_post_id_grpc(
+#     post_id:int,
+#     post_repo:PostRepository=Depends(db_helper.get_post_repo)
+# ):
+#     use_case=GetTitleByPoststrIdGrpcUseCase(post_repo)
+#     return await use_case.execute(TitleByPostIdGrpcDTO(post_id=post_id))
+
 @grpc.get("/{post_id}", response_model=PostSchema)
 async def get_user_by_post_id_grpc(
-    post_id:int,
-    post_repo:PostRepository=Depends(db_helper.get_post_repo)
+    post_id:int
 ):
-    use_case=GetUserNameByPostIdGrpcUseCase(post_repo)
-    return await use_case.execute(UserNameByIdGrpcDTO(post_id=post_id))
-
-@grpc.get("/title/{post_id}", response_model=PostSchema)
-async def get_title_by_post_id_grpc(
-    post_id:int,
-    post_repo:PostRepository=Depends(db_helper.get_post_repo)
-):
-    use_case=GetTitleByPoststrIdGrpcUseCase(post_repo)
-    return await use_case.execute(TitleByPostIdGrpcDTO(post_id=post_id))
+    use_case=GetUserNameByPostIdGrpcUseCase

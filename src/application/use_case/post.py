@@ -1,3 +1,7 @@
+from fastapi import Depends
+from src.infrastructure.database.db_helper import db_helper
+from src.infrastructure.database.repositories.post import PostRepository
+
 from src.core.models import Post
 from src.core.repositories import AbstractPostRepository
 from src.application.dto.post import(
@@ -78,18 +82,25 @@ class DeletePostUseCase:
         post_id=post_dto.post_id
         return await self._post_repo.delete_post(post_id)
     
-class GetUserNameByPostIdGrpcUseCase:
-    def __int__(self, post_repo:AbstractPostRepository):
-        self._post_repo=post_repo
+# class GetUserNameByPostIdGrpcUseCase:
+#     def __init__(self, post_repo:AbstractPostRepository):
+#         self._post_repo=post_repo
 
+#     async def execute(self, post_dto:UserNameByIdGrpcDTO):
+#         post_id=post_dto.post_id
+#         return await self._post_repo.get_user_by_post_id_grpc(post_id)
+    
+# class GetTitleByPoststrIdGrpcUseCase:
+#     def __init__(self, post_repo:AbstractPostRepository):
+#         self._post_repo=post_repo
+    
+#     async def execute(self, post_dto:TitleByPostIdGrpcDTO):
+#         post_id=post_dto.post_id
+#         return await self._post_repo.get_title_by_post_id_grpc(post_id)
+
+class GetUserNameByPostIdGrpcUseCase:
+    def __init__(self, _post_id:int):
+        self._post_repo=PostRepository
     async def execute(self, post_dto:UserNameByIdGrpcDTO):
         post_id=post_dto.post_id
-        return await self._post_repo.get_user_by_post_id_grpc(post_id)
-    
-class GetTitleByPoststrIdGrpcUseCase:
-    def __init__(self, post_repo:AbstractPostRepository):
-        self._post_repo=post_repo
-    
-    async def execute(self, post_dto:TitleByPostIdGrpcDTO):
-        post_id=post_dto.post_id
-        return await self._post_repo.get_title_by_post_id_grpc(post_id)
+        return await self._post_repo.get_user_by_post_id_grpc(post_id=_post_id)

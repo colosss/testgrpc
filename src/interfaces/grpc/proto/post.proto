@@ -1,13 +1,11 @@
 syntax = "proto3";
-
 package post;
 
 service Greeter {
+
     rpc GetUserName (PostRequest) returns (UserNameReply) {}
 
     rpc GetTitle (PostRequest) returns (PostTitleReply) {}
-
-
 
 }
 message PostRequest {

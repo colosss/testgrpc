@@ -7,7 +7,7 @@ from collections import abc as _abc
 from grpc import aio as _aio
 import abc as _abc_1
 import grpc as _grpc
-from . import post_pb2 as _post_pb2
+import src.interfaces.grpc.pb.post_pb2 as _post_pb2
 import sys
 import typing as _typing
 
