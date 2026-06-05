@@ -1,7 +1,0 @@
-{
-    "terminal.integrated.defaultProfile.linux": "sh",
-    "terminal.integrated.env.linux": {},
-    "python-envs.defaultEnvManager": "ms-python.python:poetry",
-    "python-envs.defaultPackageManager": "ms-python.python:poetry",
-    "python-envs.pythonProjects": []
-}
